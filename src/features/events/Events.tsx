@@ -10,7 +10,7 @@ export const Events = () => {
 
     return (
         <EventsContext.Provider value={context}>
-            <Typography variant="h2" component="h1" sx={{ textAlign: 'center' }}>
+            <Typography component="h1" sx={{ textAlign: 'center' }} variant="h2">
                 Natural Events
             </Typography>
             <Box component="section" sx={{ p: 2 }}>
