@@ -1,1 +1,1 @@
-export { useEvents, useEventsHook, EventsContext } from './useEvents'
+export { EventsContext, useEvents, useEventsContext } from './useEvents'

@@ -1,20 +1,16 @@
 import { TablePagination } from '@mui/material'
 
-import { useEvents } from '../../hooks'
+import { useEvents } from '@/hooks'
 
 export const EventsPagination = () => {
-    const { events, page, rowsPerPage, handleChangePage, handleChangeRowsPerPage } =
-        useEvents()
+    const { pagination, totalEvents } = useEvents()
 
     return (
         <TablePagination
             component="div"
-            count={events.length}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-            page={page}
-            rowsPerPage={rowsPerPage}
-            rowsPerPageOptions={[5, 10, 25, 50, 100]}
+            count={totalEvents}
+            rowsPerPageOptions={[5, 10, 25, 50]}
+            {...pagination}
         />
     )
 }

@@ -1,21 +1,13 @@
-import React, { useState } from 'react'
+import React, { useMemo } from 'react'
 
 import { useQuery } from '@tanstack/react-query'
 
-import type { EventResponse } from '../types'
+import type { EventResponse } from '@/types'
 
-export const useEventsHook = () => {
-    const [page, setPage] = useState(0)
-    const [rowsPerPage, setRowsPerPage] = useState(5)
+import { usePagination } from './usePagination'
 
-    const handleChangePage = (_: unknown, newPage: number) => {
-        setPage(newPage)
-    }
-
-    const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setRowsPerPage(+event.target.value)
-        setPage(0)
-    }
+export const useEventsContext = () => {
+    const pagination = usePagination()
 
     const {
         data: { events = [] } = {},
@@ -32,26 +24,33 @@ export const useEventsHook = () => {
         queryKey: ['nasaEvents'],
     })
 
+    const slicedEvents = useMemo(() => {
+        const { page, rowsPerPage } = pagination
+        return events.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+    }, [events, pagination])
+
+    const totalEvents = useMemo(() => {
+        return events.length
+    }, [events])
+
     return {
-        events,
         error,
+        events: slicedEvents,
         isFetching,
         isPending,
-        page,
-        rowsPerPage,
-        handleChangePage,
-        handleChangeRowsPerPage,
+        pagination,
+        totalEvents,
     }
 }
 
 export const EventsContext = React.createContext<
-    ReturnType<typeof useEventsHook> | undefined
+    ReturnType<typeof useEventsContext> | undefined
 >(undefined)
 
 export function useEvents() {
     const context = React.useContext(EventsContext)
     if (context === undefined) {
-        throw new Error('useEvents must be used within a Events.Provider')
+        throw new Error('useEvents must be used within a EventsContext.Provider')
     }
     return context
 }

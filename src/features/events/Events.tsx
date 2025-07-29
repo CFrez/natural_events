@@ -1,14 +1,15 @@
 import { Box } from '@mui/material'
 
-import { useEventsHook, EventsContext } from '../../hooks'
-import { EventsTable } from './EventsTable'
+import { EventsContext, useEventsContext } from '@/hooks'
+
 import { EventsPagination } from './EventsPagination'
+import { EventsTable } from './EventsTable'
 
 export const Events = () => {
-    const hook = useEventsHook()
+    const context = useEventsContext()
 
     return (
-        <EventsContext.Provider value={hook}>
+        <EventsContext.Provider value={context}>
             <Box component="section" sx={{ p: 2 }}>
                 <EventsTable />
                 <EventsPagination />

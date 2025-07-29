@@ -1,17 +1,17 @@
 import {
+    Table,
+    TableBody,
     TableCell,
-    TableRow,
     TableContainer,
     TableHead,
-    TableBody,
-    Table,
+    TableRow,
 } from '@mui/material'
 
-import { useEvents } from '../../hooks'
-import type { Event } from '../../types'
+import { useEvents } from '@/hooks'
+import type { Event } from '@/types'
 
 export const EventsTable = () => {
-    const { events, page, rowsPerPage, isPending, isFetching, error } = useEvents()
+    const { error, events, isFetching, isPending } = useEvents()
 
     const generateTableRow = (row: Event) => {
         return (
@@ -42,11 +42,7 @@ export const EventsTable = () => {
                         <TableCell>Sources</TableCell>
                     </TableRow>
                 </TableHead>
-                <TableBody>
-                    {events
-                        .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                        .map(generateTableRow)}
-                </TableBody>
+                <TableBody>{events.map(generateTableRow)}</TableBody>
             </Table>
         </TableContainer>
     )

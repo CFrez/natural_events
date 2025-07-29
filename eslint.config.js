@@ -53,6 +53,7 @@ export default tseslint.config(
                             react: '^react',
                         },
                     },
+                    internalPattern: ['^@/.*'],
                     newlinesBetween: 'always',
                 },
             ],
