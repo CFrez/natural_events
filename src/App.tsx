@@ -1,6 +1,6 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
-import { Events } from './Events'
+import { Events } from './features/events/Events'
 
 const queryClient = new QueryClient()
 
