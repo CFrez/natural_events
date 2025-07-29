@@ -36,6 +36,27 @@ export default tseslint.config(
             ...perfectionist.configs['recommended-natural'].rules,
             'perfectionist/sort-enums': 'off',
 
+            // Custom import sorting - React packages at top
+            'perfectionist/sort-imports': [
+                'error',
+                {
+                    groups: [
+                        'react',
+                        'external',
+                        'internal',
+                        'parent',
+                        'sibling',
+                        'index',
+                    ],
+                    customGroups: {
+                        value: {
+                            react: '^react',
+                        },
+                    },
+                    newlinesBetween: 'always',
+                },
+            ],
+
             // Due to having the exact same types between evaluation types
             '@typescript-eslint/no-namespace': 'off',
         },
