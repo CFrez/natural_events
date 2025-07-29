@@ -4,9 +4,10 @@ import reactHooks from 'eslint-plugin-react-hooks'
 import reactRefresh from 'eslint-plugin-react-refresh'
 import tseslint from 'typescript-eslint'
 import perfectionist from 'eslint-plugin-perfectionist'
+import tanstackQuery from '@tanstack/eslint-plugin-query'
 
 export default tseslint.config(
-    { ignores: ['dist', 'src/client/*'] },
+    { ignores: ['dist', 'src/client/*', 'pnpm-lock.yaml'] },
     {
         extends: [js.configs.recommended, ...tseslint.configs.recommended],
         files: ['**/*.{ts,tsx}'],
@@ -18,6 +19,7 @@ export default tseslint.config(
             'react-hooks': reactHooks,
             'react-refresh': reactRefresh,
             perfectionist,
+            '@tanstack/query': tanstackQuery,
         },
         rules: {
             ...reactHooks.configs.recommended.rules,
@@ -26,6 +28,9 @@ export default tseslint.config(
                 { allowConstantExport: true },
             ],
             'react-refresh/only-export-components': 'off',
+
+            // TanStack Query recommended rules
+            ...tanstackQuery.configs.recommended.rules,
 
             // Perfectionist recommended-natural configuration
             ...perfectionist.configs['recommended-natural'].rules,
@@ -48,6 +53,7 @@ export default tseslint.config(
                             react: '^react',
                         },
                     },
+                    internalPattern: ['^@/.*'],
                     newlinesBetween: 'always',
                 },
             ],

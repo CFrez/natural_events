@@ -1,10 +1,14 @@
-import { Box, Typography } from '@mui/material'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+
+import { Events } from './features/events/Events'
+
+const queryClient = new QueryClient()
 
 function App() {
     return (
-        <Box component="section">
-            <Typography variant="h1">Hello World</Typography>
-        </Box>
+        <QueryClientProvider client={queryClient}>
+            <Events />
+        </QueryClientProvider>
     )
 }
 
