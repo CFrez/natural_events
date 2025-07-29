@@ -7,7 +7,7 @@ import perfectionist from 'eslint-plugin-perfectionist'
 import tanstackQuery from '@tanstack/eslint-plugin-query'
 
 export default tseslint.config(
-    { ignores: ['dist', 'src/client/*'] },
+    { ignores: ['dist', 'src/client/*', 'pnpm-lock.yaml'] },
     {
         extends: [js.configs.recommended, ...tseslint.configs.recommended],
         files: ['**/*.{ts,tsx}'],
