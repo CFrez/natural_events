@@ -1,15 +1,16 @@
+import { useState } from 'react'
+
 import {
-    Paper,
-    TableContainer,
+    Box,
     Table,
-    TableHead,
-    TableRow,
-    TableCell,
     TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
     TablePagination,
+    TableRow,
 } from '@mui/material'
 import { useQuery } from '@tanstack/react-query'
-import { useState } from 'react'
 
 import type { EventResponse } from './types'
 
@@ -45,8 +46,8 @@ export const Events = () => {
     if (error) return <div>An error has occurred: {error.message}</div>
 
     return (
-        <Paper sx={{ p: 2, height: '100%' }}>
-            <TableContainer sx={{ maxHeight: 440, minHeight: 440 }}>
+        <Box component="section" sx={{ p: 2 }}>
+            <TableContainer>
                 <Table stickyHeader>
                     <TableHead>
                         <TableRow>
@@ -63,9 +64,9 @@ export const Events = () => {
                                 return (
                                     <TableRow
                                         hover
+                                        key={row.id}
                                         role="checkbox"
                                         tabIndex={-1}
-                                        key={row.id}
                                     >
                                         <TableCell>
                                             {row.closed ? 'Closed' : 'Open'}
@@ -88,14 +89,14 @@ export const Events = () => {
                 </Table>
             </TableContainer>
             <TablePagination
-                rowsPerPageOptions={[5, 10, 25, 50, 100]}
                 component="div"
                 count={events.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
                 onPageChange={handleChangePage}
                 onRowsPerPageChange={handleChangeRowsPerPage}
+                page={page}
+                rowsPerPage={rowsPerPage}
+                rowsPerPageOptions={[5, 10, 25, 50, 100]}
             />
-        </Paper>
+        </Box>
     )
 }
