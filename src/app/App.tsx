@@ -12,16 +12,24 @@ export function App() {
         <QueryClientProvider client={queryClient}>
             <CssBaseline />
             <ThemeProvider theme={theme}>
-                <Container component="main" maxWidth="xl">
-                    <Container component="header" maxWidth="xl">
-                        <Typography
-                            color="primary"
-                            sx={{ textAlign: 'center' }}
-                            variant="h1"
-                        >
-                            Natural Events
-                        </Typography>
-                    </Container>
+                <Container
+                    component="header"
+                    maxWidth={false}
+                    sx={{
+                        backgroundColor: 'primary.main',
+                        margin: 0,
+                        padding: '1rem',
+                    }}
+                >
+                    <Typography
+                        color="primary.contrastText"
+                        sx={{ textAlign: 'center' }}
+                        variant="h1"
+                    >
+                        Natural Events from EONET
+                    </Typography>
+                </Container>
+                <Container component="main">
                     <Events />
                 </Container>
             </ThemeProvider>

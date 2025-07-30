@@ -35,7 +35,7 @@ export const theme = createTheme({
         fontFamily: 'Source Sans 3 Variable, sans-serif',
         h1: {
             fontFamily: 'Oswald Variable, sans-serif',
-            fontSize: '4rem',
+            fontSize: '3rem',
             fontWeight: 700,
             lineHeight: 1.2,
         },
