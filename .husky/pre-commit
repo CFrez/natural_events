@@ -1,2 +1,9 @@
+# Run ESLint with auto-fix to catch and resolve code issues
 pnpm lint
+
+# Format all code files with Prettier
 pnpm prettier
+
+# Stage any changes made by linting and formatting
+# ...does this cause an issue if you aren't committing everything?
+git add .

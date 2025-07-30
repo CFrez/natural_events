@@ -14,9 +14,18 @@ importers:
       '@emotion/styled':
         specifier: ^11.14.1
         version: 11.14.1(@emotion/react@11.14.0(@types/react@19.1.9)(react@19.1.1))(@types/react@19.1.9)(react@19.1.1)
-      '@fontsource/roboto':
+      '@fontsource-variable/oswald':
         specifier: ^5.2.6
         version: 5.2.6
+      '@fontsource-variable/source-sans-3':
+        specifier: ^5.2.8
+        version: 5.2.8
+      '@fontsource/kanit':
+        specifier: ^5.2.6
+        version: 5.2.6
+      '@fontsource/source-sans-pro':
+        specifier: ^5.2.5
+        version: 5.2.5
       '@mui/icons-material':
         specifier: ^7.2.0
         version: 7.2.0(@mui/material@7.2.0(@emotion/react@11.14.0(@types/react@19.1.9)(react@19.1.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.1.9)(react@19.1.1))(@types/react@19.1.9)(react@19.1.1))(@types/react@19.1.9)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(@types/react@19.1.9)(react@19.1.1)
@@ -426,8 +435,17 @@ packages:
     resolution: {integrity: sha512-Ul5l+lHEcw3L5+k8POx6r74mxEYKG5kOb6Xpy2gCRW6zweT6TEhAf8vhxGgjhqrd/VO/Dirhsb+1hNpD1ue9hw==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  '@fontsource/roboto@5.2.6':
-    resolution: {integrity: sha512-hzarG7yAhMoP418smNgfY4fO7UmuUEm5JUtbxCoCcFHT0hOJB+d/qAEyoNjz7YkPU5OjM2LM8rJnW8hfm0JLaA==}
+  '@fontsource-variable/oswald@5.2.6':
+    resolution: {integrity: sha512-SOEscXMkHNEXsjmAc1dJUJWeShVhAQZQ7AbUTM+4W8JIrJwqp1w2brGFJMl24AiTHx7Je2yOVoyF24NJe1fdqQ==}
+
+  '@fontsource-variable/source-sans-3@5.2.8':
+    resolution: {integrity: sha512-iRQD4k06Wxm1668+AbPBoVo+CbgRsOz2E0/XibDJ7kAm9UhdhmNmsMTvs9KEl/mQxUj/487tr9w47NoM/TMhZQ==}
+
+  '@fontsource/kanit@5.2.6':
+    resolution: {integrity: sha512-L+oVLRRrL/D5l3gMtO5FFrQFlg7P7hn7Z7wHgMur/tNUrHTLAKTQfo095/NFqhJanWX511rBf5BsCr7G5C73rg==}
+
+  '@fontsource/source-sans-pro@5.2.5':
+    resolution: {integrity: sha512-ypendqc4pYUc+EgF7qqPY9iVYEz1t/Qr03VojKxG/2g3dnpHa1B6DOlDxWQjQXDj5QrG6inEqGT0g+edjALZyg==}
 
   '@humanfs/core@0.19.1':
     resolution: {integrity: sha512-5DyQ4+1JEUzejeK1JGICcideyfUbGixgS9jNgex5nqkW+cY7WZhxBigmieN5Qnw9ZosSNVC9KQKyb+GUaGyKUA==}
@@ -1782,7 +1800,13 @@ snapshots:
       '@eslint/core': 0.15.1
       levn: 0.4.1
 
-  '@fontsource/roboto@5.2.6': {}
+  '@fontsource-variable/oswald@5.2.6': {}
+
+  '@fontsource-variable/source-sans-3@5.2.8': {}
+
+  '@fontsource/kanit@5.2.6': {}
+
+  '@fontsource/source-sans-pro@5.2.5': {}
 
   '@humanfs/core@0.19.1': {}
 
