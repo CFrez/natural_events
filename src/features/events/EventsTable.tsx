@@ -31,15 +31,28 @@ export const EventsTable = () => {
     if (isPending || isFetching) return <div>Loading...</div>
     if (error) return <div>An error has occurred: {error.message}</div>
 
+    const tableHeadCellStyle = {
+        color: 'primary.main',
+        fontFamily: 'Oswald Variable, sans-serif',
+        fontSize: '1rem',
+        fontWeight: 600,
+    }
+
     return (
-        <TableContainer sx={{ maxHeight: 440 }}>
+        <TableContainer
+            sx={{
+                border: '.5px solid #22418d',
+                borderRadius: '0.5rem',
+                maxHeight: 440,
+            }}
+        >
             <Table stickyHeader>
                 <TableHead>
                     <TableRow>
-                        <TableCell>Status</TableCell>
-                        <TableCell>Title</TableCell>
-                        <TableCell>Categories</TableCell>
-                        <TableCell>Sources</TableCell>
+                        <TableCell sx={tableHeadCellStyle}>Status</TableCell>
+                        <TableCell sx={tableHeadCellStyle}>Title</TableCell>
+                        <TableCell sx={tableHeadCellStyle}>Categories</TableCell>
+                        <TableCell sx={tableHeadCellStyle}>Sources</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>{events.map(generateTableRow)}</TableBody>
