@@ -1,7 +1,8 @@
+import { CssBaseline, ThemeProvider } from '@mui/material'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 import { Events } from '../features/events/Events'
-import { CssBaseline, ThemeProvider } from '@mui/material'
+
 import { theme } from './theme'
 
 const queryClient = new QueryClient()
