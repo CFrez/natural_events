@@ -45,6 +45,10 @@ export const EventsTable = () => {
         fontWeight: 600,
     }
 
+    // TODO: Have table fill full height of container with pagination at bottom of screen
+    // TODO: Add a loading state to the table
+    // TODO: Add a no data state to the table
+
     return (
         <TableContainer
             sx={{
