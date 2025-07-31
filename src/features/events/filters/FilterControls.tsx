@@ -5,7 +5,7 @@ import { useEvents } from '@/hooks/useEvents'
 
 export const FilterControls = () => {
     const {
-        filter: { handleReset },
+        filter: { handleReset, hasChanged },
         handleRefetch,
     } = useEvents()
 
@@ -14,6 +14,7 @@ export const FilterControls = () => {
             <Button
                 aria-label="Apply Filters"
                 color="primary"
+                disabled={!hasChanged}
                 onClick={handleRefetch}
                 sx={{
                     flexGrow: 1,
@@ -26,6 +27,7 @@ export const FilterControls = () => {
             <IconButton
                 aria-label="Reset Filters"
                 color="secondary"
+                disabled={!hasChanged}
                 onClick={handleReset}
                 type="button"
             >

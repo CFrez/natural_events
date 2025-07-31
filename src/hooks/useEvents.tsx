@@ -32,6 +32,7 @@ export const useEventsContext = () => {
     }, [pagination, refetch])
 
     // HACK: after filters have been reset, the events are refetched
+    // This avoids a race condition where the events are refetched before the filters are reset
     const hasRefetched = useRef(false)
     useEffect(() => {
         if (!filter.hasChanged && !hasRefetched.current) {
