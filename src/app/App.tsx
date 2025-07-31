@@ -9,6 +9,8 @@ import {
     ThemeProvider,
     Typography,
 } from '@mui/material'
+import { LocalizationProvider } from '@mui/x-date-pickers'
+import { AdapterLuxon } from '@mui/x-date-pickers/AdapterLuxon'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 import { Events } from '../features/events/Events'
@@ -26,25 +28,29 @@ export function App() {
 
     return (
         <QueryClientProvider client={queryClient}>
-            <CssBaseline />
-            <ThemeProvider theme={theme}>
-                <AppBar position="static">
-                    <Box
-                        sx={{
-                            alignItems: 'center',
-                            display: 'flex',
-                            justifyContent: 'space-between',
-                            p: '1rem 1.5rem',
-                        }}
-                    >
-                        <Typography variant="h1">Natural Events from EONET</Typography>
-                        <IconButton color="inherit" onClick={toggleDrawer}>
-                            <TuneIcon />
-                        </IconButton>
-                    </Box>
-                </AppBar>
-                <Events isDrawerOpen={isDrawerOpen} />
-            </ThemeProvider>
+            <LocalizationProvider dateAdapter={AdapterLuxon}>
+                <CssBaseline />
+                <ThemeProvider theme={theme}>
+                    <AppBar position="static">
+                        <Box
+                            sx={{
+                                alignItems: 'center',
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                                p: '1rem 1.5rem',
+                            }}
+                        >
+                            <Typography variant="h1">
+                                Natural Events from EONET
+                            </Typography>
+                            <IconButton color="inherit" onClick={toggleDrawer}>
+                                <TuneIcon />
+                            </IconButton>
+                        </Box>
+                    </AppBar>
+                    <Events isDrawerOpen={isDrawerOpen} />
+                </ThemeProvider>
+            </LocalizationProvider>
         </QueryClientProvider>
     )
 }

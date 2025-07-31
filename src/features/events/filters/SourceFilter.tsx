@@ -55,6 +55,7 @@ export const SourceFilter = () => {
                     aria-controls={open ? 'add-source-menu' : undefined}
                     aria-expanded={open ? 'true' : undefined}
                     aria-haspopup="true"
+                    fullWidth
                     id="add-source-button"
                     onClick={handleClick}
                     startIcon={<AddIcon />}
