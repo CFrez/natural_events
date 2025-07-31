@@ -77,6 +77,12 @@ export const useFilters = () => {
         setHasChanged(false)
     }
 
+    const handleResetAll = () => {
+        setFilters(defaultFilters)
+        setTitleSearch('')
+        setHasChanged(false)
+    }
+
     const handleFilterChange = (
         name: keyof Filters,
         value: (typeof filters)[keyof Filters],
@@ -115,6 +121,7 @@ export const useFilters = () => {
         generateUrl,
         handleFilterChange,
         handleReset,
+        handleResetAll,
         handleSubmit,
         handleTitleChange,
         hasChanged,

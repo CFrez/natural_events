@@ -11,6 +11,7 @@ import { useEvents } from '@/hooks'
 import type { Event } from '@/types'
 
 import { TitleSearch } from './filters/TitleSearch'
+import { EmptyMessage, ErrorMessage, LoadingMessage } from './messages'
 
 export const EventsTable = () => {
     const { error, events, isFetching, isPending } = useEvents()
@@ -37,8 +38,23 @@ export const EventsTable = () => {
         )
     }
 
-    if (isPending || isFetching) return <div>Loading...</div>
-    if (error) return <div>An error has occurred: {error.message}</div>
+    const needsMessage = events.length === 0 || isFetching || isPending || !!error
+
+    const getMessage = () => {
+        return (
+            <TableRow>
+                <TableCell colSpan={4} sx={{ height: '100%' }}>
+                    {isFetching || isPending ? (
+                        <LoadingMessage />
+                    ) : error ? (
+                        <ErrorMessage />
+                    ) : (
+                        <EmptyMessage />
+                    )}
+                </TableCell>
+            </TableRow>
+        )
+    }
 
     const tableHeadCellStyle = {
         color: 'primary.main',
@@ -47,9 +63,6 @@ export const EventsTable = () => {
         fontWeight: 600,
         padding: '.75rem 1rem',
     }
-
-    // TODO: Add a loading state to the table
-    // TODO: Add a no data state to the table
 
     return (
         <TableContainer
@@ -86,7 +99,9 @@ export const EventsTable = () => {
                         <TableCell sx={tableHeadCellStyle}>Sources</TableCell>
                     </TableRow>
                 </TableHead>
-                <TableBody>{events.map(generateTableRow)}</TableBody>
+                <TableBody>
+                    {needsMessage ? getMessage() : events.map(generateTableRow)}
+                </TableBody>
             </Table>
         </TableContainer>
     )
