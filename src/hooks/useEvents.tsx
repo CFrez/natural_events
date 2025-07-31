@@ -60,10 +60,16 @@ export const useEventsContext = () => {
         queryKey: ['nasaEvents'],
     })
 
+    const handleRefetch = useCallback(() => {
+        const { onPageChange: handleChangePage } = pagination
+        handleChangePage(null, 0)
+        refetch()
+    }, [pagination, refetch])
+
     const handleReset = useCallback(() => {
         filter.handleReset()
-        refetch()
-    }, [filter.handleReset, refetch])
+        handleRefetch()
+    }, [filter.handleReset, handleRefetch])
 
     const filteredEvents = useMemo(() => {
         return events.filter((event) =>
@@ -88,7 +94,7 @@ export const useEventsContext = () => {
         error,
         events: slicedEvents,
         filter,
-        handleRefetch: refetch,
+        handleRefetch,
         handleReset,
         isFetching,
         isPending,

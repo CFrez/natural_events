@@ -12,7 +12,7 @@ export const Events = ({ isDrawerOpen }: { isDrawerOpen: boolean }) => {
     return (
         <Box
             component="main"
-            sx={{ display: 'flex', height: '80%', overflow: 'auto', width: '100%' }}
+            sx={{ display: 'flex', flexGrow: 1, overflow: 'auto', width: '100%' }}
         >
             <EventsContext.Provider value={context}>
                 <Box component="section" sx={{ flexGrow: 1, overflow: 'auto', p: 2 }}>
