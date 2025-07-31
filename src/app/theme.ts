@@ -1,5 +1,15 @@
 import { createTheme } from '@mui/material/styles'
 
+declare module '@mui/material/styles' {
+    interface PaletteColor {
+        lighter?: string
+    }
+
+    interface SimplePaletteColorOptions {
+        lighter?: string
+    }
+}
+
 export const theme = createTheme({
     components: {
         MuiCssBaseline: {
@@ -25,6 +35,7 @@ export const theme = createTheme({
     },
     palette: {
         primary: {
+            lighter: '#22418d1a',
             main: '#22418d',
         },
         secondary: {
