@@ -26,6 +26,7 @@ export const StatusFilter = () => {
                             aria-label={`${open ? 'Hide' : 'Show'} open events`}
                             checked={open}
                             onChange={() => handleFilterChange('open', !open)}
+                            size="small"
                         />
                     }
                     label="Open"
@@ -37,6 +38,7 @@ export const StatusFilter = () => {
                             aria-label={`${closed ? 'Hide' : 'Show'} closed events`}
                             checked={closed}
                             onChange={() => handleFilterChange('closed', !closed)}
+                            size="small"
                         />
                     }
                     label="Closed"
