@@ -1,0 +1,1 @@
+export { categoryIdMap } from './categoryIdMap'

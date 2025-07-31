@@ -1,41 +1,72 @@
-import React, { useMemo } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef } from 'react'
 
 import { useQuery } from '@tanstack/react-query'
 
 import type { EventResponse } from '@/types'
 
+import { useFilters } from './useFilters'
 import { usePagination } from './usePagination'
 
 export const useEventsContext = () => {
     const pagination = usePagination()
+    const filter = useFilters()
 
     const {
         data: { events = [] } = {},
         error,
         isFetching,
         isPending,
+        refetch,
     } = useQuery<EventResponse>({
         queryFn: async () => {
-            const response = await fetch(
-                'https://eonet.gsfc.nasa.gov/api/v2.1/events?days=30',
-            )
+            const response = await fetch(filter.generateUrl())
             return await response.json()
         },
         queryKey: ['nasaEvents'],
     })
 
+    const handleRefetch = useCallback(() => {
+        const { onPageChange: handleChangePage } = pagination
+        handleChangePage(null, 0)
+        refetch()
+    }, [pagination, refetch])
+
+    // HACK: after filters have been reset, the events are refetched
+    // This avoids a race condition where the events are refetched before the filters are reset
+    const hasRefetched = useRef(false)
+    useEffect(() => {
+        if (!filter.hasChanged && !hasRefetched.current) {
+            handleRefetch()
+            hasRefetched.current = true
+        } else if (filter.hasChanged) {
+            hasRefetched.current = false
+        }
+    }, [filter.hasChanged, handleRefetch])
+
+    const filteredEvents = useMemo(() => {
+        return events.filter((event) =>
+            event.title.toLowerCase().includes(filter.titleSearch.toLowerCase()),
+        )
+    }, [events, filter.titleSearch])
+
     const slicedEvents = useMemo(() => {
         const { page, rowsPerPage } = pagination
-        return events.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-    }, [events, pagination])
+
+        return filteredEvents.slice(
+            page * rowsPerPage,
+            page * rowsPerPage + rowsPerPage,
+        )
+    }, [filteredEvents, pagination])
 
     const totalEvents = useMemo(() => {
-        return events.length
-    }, [events])
+        return filteredEvents.length
+    }, [filteredEvents])
 
     return {
         error,
         events: slicedEvents,
+        filter,
+        handleRefetch,
         isFetching,
         isPending,
         pagination,

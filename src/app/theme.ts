@@ -1,5 +1,15 @@
 import { createTheme } from '@mui/material/styles'
 
+declare module '@mui/material/styles' {
+    interface PaletteColor {
+        lighter?: string
+    }
+
+    interface SimplePaletteColorOptions {
+        lighter?: string
+    }
+}
+
 export const theme = createTheme({
     components: {
         MuiCssBaseline: {
@@ -25,6 +35,7 @@ export const theme = createTheme({
     },
     palette: {
         primary: {
+            lighter: '#22418d1a',
             main: '#22418d',
         },
         secondary: {
@@ -35,7 +46,7 @@ export const theme = createTheme({
         fontFamily: 'Source Sans 3 Variable, sans-serif',
         h1: {
             fontFamily: 'Oswald Variable, sans-serif',
-            fontSize: '3rem',
+            fontSize: '2rem',
             fontWeight: 700,
             lineHeight: 1.2,
         },
