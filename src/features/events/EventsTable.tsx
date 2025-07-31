@@ -56,12 +56,18 @@ export const EventsTable = () => {
             sx={{
                 border: '.5px solid #22418d',
                 borderRadius: '0.5rem',
-                maxHeight: 440,
-                minHeight: 318,
+                flexGrow: 1,
+                height: '100%',
             }}
         >
             <Table stickyHeader>
-                <TableHead>
+                <TableHead
+                    // Since the Title header cell didn't stick this was needed
+                    sx={{
+                        position: 'sticky',
+                        top: 0,
+                    }}
+                >
                     <TableRow>
                         <TableCell sx={tableHeadCellStyle}>Status</TableCell>
                         <TableCell
