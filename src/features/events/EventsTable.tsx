@@ -10,6 +10,8 @@ import {
 import { useEvents } from '@/hooks'
 import type { Event } from '@/types'
 
+import { TitleSearch } from './filters/TitleSearch'
+
 export const EventsTable = () => {
     const { error, events, isFetching, isPending } = useEvents()
 
@@ -62,7 +64,18 @@ export const EventsTable = () => {
                 <TableHead>
                     <TableRow>
                         <TableCell sx={tableHeadCellStyle}>Status</TableCell>
-                        <TableCell sx={tableHeadCellStyle}>Title</TableCell>
+                        <TableCell
+                            sx={{
+                                ...tableHeadCellStyle,
+                                alignItems: 'center',
+                                display: 'flex',
+                                flexDirection: 'row',
+                                gap: 2,
+                            }}
+                        >
+                            Title
+                            <TitleSearch />
+                        </TableCell>
                         <TableCell sx={tableHeadCellStyle}>Categories</TableCell>
                         <TableCell sx={tableHeadCellStyle}>Sources</TableCell>
                     </TableRow>
