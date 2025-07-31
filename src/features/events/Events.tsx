@@ -23,7 +23,7 @@ export const Events = ({ isDrawerOpen }: { isDrawerOpen: boolean }) => {
                         flexGrow: 1,
                         overflow: 'auto',
                         p: 3,
-                        paddingBottom: 0,
+                        paddingBottom: 1,
                     }}
                 >
                     <EventsTable />
