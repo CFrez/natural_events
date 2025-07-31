@@ -14,9 +14,7 @@ export const FilterControls = () => {
             <Button
                 aria-label="Apply Filters"
                 color="primary"
-                onClick={() => {
-                    handleRefetch()
-                }}
+                onClick={handleRefetch}
                 sx={{
                     flexGrow: 1,
                 }}
@@ -28,10 +26,7 @@ export const FilterControls = () => {
             <IconButton
                 aria-label="Reset Filters"
                 color="secondary"
-                onClick={() => {
-                    handleReset()
-                    handleRefetch()
-                }}
+                onClick={handleReset}
                 type="button"
             >
                 <RestartAltIcon />

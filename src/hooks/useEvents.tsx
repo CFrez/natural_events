@@ -1,8 +1,7 @@
-import React, { useCallback, useMemo } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef } from 'react'
 
 import { useQuery } from '@tanstack/react-query'
 
-import { categoryIdMap } from '@/lib'
 import type { EventResponse } from '@/types'
 
 import { useFilters } from './useFilters'
@@ -12,40 +11,6 @@ export const useEventsContext = () => {
     const pagination = usePagination()
     const filter = useFilters()
 
-    const fetchFn = useCallback(() => {
-        const { category, closed, days, open, sources } = filter.filters
-        let url = 'https://eonet.gsfc.nasa.gov/api/v2.1/'
-
-        if (category !== '') {
-            // https://eonet.gsfc.nasa.gov/api/v2.1/categories/8?source=InciWeb
-            url += `categories/${categoryIdMap[category]}`
-        } else {
-            url += `events`
-        }
-
-        const queryParams = new URLSearchParams()
-        if (sources.length > 0) {
-            // https://eonet.gsfc.nasa.gov/api/v2.1/events?source=InciWeb,EO
-            queryParams.append('source', sources.join(','))
-        }
-
-        if (open && !closed) {
-            // https://eonet.gsfc.nasa.gov/api/v2.1/events?status=open
-            queryParams.append('status', 'open')
-        } else if (!open && closed) {
-            // https://eonet.gsfc.nasa.gov/api/v2.1/events?status=closed
-            queryParams.append('status', 'closed')
-        }
-
-        if (days) {
-            // https://eonet.gsfc.nasa.gov/api/v2.1/events?days=20
-            queryParams.append('days', days.toString())
-        }
-        url += `?${queryParams.toString()}`
-
-        return fetch(url)
-    }, [filter.filters])
-
     const {
         data: { events = [] } = {},
         error,
@@ -54,7 +19,7 @@ export const useEventsContext = () => {
         refetch,
     } = useQuery<EventResponse>({
         queryFn: async () => {
-            const response = await fetchFn()
+            const response = await fetch(filter.generateUrl())
             return await response.json()
         },
         queryKey: ['nasaEvents'],
@@ -66,10 +31,16 @@ export const useEventsContext = () => {
         refetch()
     }, [pagination, refetch])
 
-    const handleReset = useCallback(() => {
-        filter.handleReset()
-        handleRefetch()
-    }, [filter.handleReset, handleRefetch])
+    // HACK: after filters have been reset, the events are refetched
+    const hasRefetched = useRef(false)
+    useEffect(() => {
+        if (!filter.hasChanged && !hasRefetched.current) {
+            handleRefetch()
+            hasRefetched.current = true
+        } else if (filter.hasChanged) {
+            hasRefetched.current = false
+        }
+    }, [filter.hasChanged, handleRefetch])
 
     const filteredEvents = useMemo(() => {
         return events.filter((event) =>
@@ -95,7 +66,6 @@ export const useEventsContext = () => {
         events: slicedEvents,
         filter,
         handleRefetch,
-        handleReset,
         isFetching,
         isPending,
         pagination,

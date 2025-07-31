@@ -1,7 +1,8 @@
-import { useMemo, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 
 import { useQuery } from '@tanstack/react-query'
 
+import { categoryIdMap } from '@/lib'
 import type { CategoryResponse, Filters, SourceResponse } from '@/types'
 
 const defaultFilters: Filters = {
@@ -36,6 +37,40 @@ export const useFilters = () => {
         },
         queryKey: ['sources'],
     })
+
+    const generateUrl = useCallback(() => {
+        const { category, closed, days, open, sources } = filters
+        let url = 'https://eonet.gsfc.nasa.gov/api/v2.1/'
+
+        if (category !== '') {
+            // https://eonet.gsfc.nasa.gov/api/v2.1/categories/8?source=InciWeb
+            url += `categories/${categoryIdMap[category]}`
+        } else {
+            url += `events`
+        }
+
+        const queryParams = new URLSearchParams()
+        if (sources.length > 0) {
+            // https://eonet.gsfc.nasa.gov/api/v2.1/events?source=InciWeb,EO
+            queryParams.append('source', sources.join(','))
+        }
+
+        if (open && !closed) {
+            // https://eonet.gsfc.nasa.gov/api/v2.1/events?status=open
+            queryParams.append('status', 'open')
+        } else if (!open && closed) {
+            // https://eonet.gsfc.nasa.gov/api/v2.1/events?status=closed
+            queryParams.append('status', 'closed')
+        }
+
+        if (days) {
+            // https://eonet.gsfc.nasa.gov/api/v2.1/events?days=20
+            queryParams.append('days', days.toString())
+        }
+        url += `?${queryParams.toString()}`
+
+        return url
+    }, [filters])
 
     const handleReset = () => {
         setFilters(defaultFilters)
@@ -77,6 +112,7 @@ export const useFilters = () => {
     return {
         categoryOptions,
         filters,
+        generateUrl,
         handleFilterChange,
         handleReset,
         handleSubmit,
