@@ -30,7 +30,7 @@ export const CategoryFilter = () => {
                 onChange={handleSelectChange}
                 value={category}
             >
-                <MenuItem value="">All Categories</MenuItem>
+                <MenuItem value="all">All Categories</MenuItem>
                 {categoryOptions?.map((option) => (
                     <MenuItem key={option.value} value={option.value}>
                         {option.label}

@@ -6,7 +6,7 @@ import { categoryIdMap } from '@/lib'
 import type { CategoryResponse, Filters, SourceResponse } from '@/types'
 
 const defaultFilters: Filters = {
-    category: '',
+    category: 'all',
     closed: false,
     days: 30,
     open: true,
@@ -42,7 +42,7 @@ export const useFilters = () => {
         const { category, closed, days, open, sources } = filters
         let url = 'https://eonet.gsfc.nasa.gov/api/v2.1/'
 
-        if (category !== '') {
+        if (category !== 'all') {
             // https://eonet.gsfc.nasa.gov/api/v2.1/categories/8?source=InciWeb
             url += `categories/${categoryIdMap[category]}`
         } else {
@@ -69,6 +69,7 @@ export const useFilters = () => {
         }
         url += `?${queryParams.toString()}`
 
+        setHasChanged(false)
         return url
     }, [filters])
 

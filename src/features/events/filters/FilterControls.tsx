@@ -27,7 +27,6 @@ export const FilterControls = () => {
             <IconButton
                 aria-label="Reset Filters"
                 color="secondary"
-                disabled={!hasChanged}
                 onClick={handleReset}
                 type="button"
             >
