@@ -1,4 +1,4 @@
-import { Button, CircularProgress } from '@mui/material'
+import { Button } from '@mui/material'
 
 import { IconMessage } from '@/components'
 import { useEvents } from '@/hooks'
@@ -30,8 +30,8 @@ export const LoadingMessage = () => {
                     </>
                 ) : undefined
             }
-            icon={<CircularProgress />}
             message="Loading..."
+            type="loading"
         />
     )
 }

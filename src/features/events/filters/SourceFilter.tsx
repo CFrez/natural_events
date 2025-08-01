@@ -65,6 +65,7 @@ export const SourceFilter = () => {
                 >
                     <AddCircleOutline />
                 </IconButton>
+                {/* TODO: Should this also have a source specific reset button? */}
                 <Menu
                     anchorEl={anchorEl}
                     id="add-source-menu"

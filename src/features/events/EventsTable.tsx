@@ -43,7 +43,14 @@ export const EventsTable = () => {
     const getMessage = () => {
         return (
             <TableRow>
-                <TableCell colSpan={4} sx={{ height: '100%' }}>
+                <TableCell
+                    colSpan={4}
+                    sx={{
+                        border: 'none',
+                        height: '100%',
+                        paddingTop: '5rem',
+                    }}
+                >
                     {isFetching || isPending ? (
                         <LoadingMessage />
                     ) : error ? (

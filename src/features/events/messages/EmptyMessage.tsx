@@ -1,4 +1,3 @@
-import { DataArray } from '@mui/icons-material'
 import { Button } from '@mui/material'
 
 import { IconMessage } from '@/components'
@@ -27,8 +26,8 @@ export const EmptyMessage = () => {
                         </Button>
                     </>
                 }
-                icon={<DataArray />}
-                message="No data found"
+                message="No Data Found"
+                type="empty"
             />
         )
     }

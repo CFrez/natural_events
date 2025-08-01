@@ -1,5 +1,3 @@
-import { ErrorOutline } from '@mui/icons-material'
-
 import { IconMessage } from '@/components'
 import { useEvents } from '@/hooks'
 
@@ -9,8 +7,8 @@ export const ErrorMessage = () => {
     return (
         <IconMessage
             details={error?.message}
-            icon={<ErrorOutline />}
-            message="An error occurred"
+            message="An Error Occurred"
+            type="error"
         />
     )
 }
