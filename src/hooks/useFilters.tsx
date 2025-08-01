@@ -69,7 +69,6 @@ export const useFilters = () => {
         }
         url += `?${queryParams.toString()}`
 
-        setHasChanged(false)
         return url
     }, [filters])
 
@@ -79,9 +78,8 @@ export const useFilters = () => {
     }
 
     const handleResetAll = () => {
-        setFilters(defaultFilters)
+        handleReset()
         setTitleSearch('')
-        setHasChanged(false)
     }
 
     const handleFilterChange = (
@@ -94,12 +92,6 @@ export const useFilters = () => {
 
     const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setTitleSearch(event.target.value)
-    }
-
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault()
-        console.log(filters)
-        setHasChanged(false)
     }
 
     const categoryOptions = useMemo(() => {
@@ -123,7 +115,6 @@ export const useFilters = () => {
         handleFilterChange,
         handleReset,
         handleResetAll,
-        handleSubmit,
         handleTitleChange,
         hasChanged,
         sourceOptions,
