@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useRef } from 'react'
 
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 
 import type { EventResponse } from '@/types'
 
@@ -8,6 +8,8 @@ import { useFilters } from './useFilters'
 import { usePagination } from './usePagination'
 
 export const useEventsContext = () => {
+    const queryClient = useQueryClient()
+
     const pagination = usePagination()
     const filter = useFilters()
 
@@ -43,6 +45,14 @@ export const useEventsContext = () => {
         }
     }, [filter.hasChanged, handleRefetch])
 
+    const handleCancel = useCallback(
+        (e: React.MouseEvent<HTMLButtonElement>) => {
+            e.preventDefault()
+            queryClient.cancelQueries({ queryKey: ['nasaEvents'] })
+        },
+        [queryClient],
+    )
+
     const filteredEvents = useMemo(() => {
         return events.filter((event) =>
             event.title.toLowerCase().includes(filter.titleSearch.toLowerCase()),
@@ -66,6 +76,7 @@ export const useEventsContext = () => {
         error,
         events: slicedEvents,
         filter,
+        handleCancel,
         handleRefetch,
         isFetching,
         isPending,

@@ -11,6 +11,7 @@ import { useEvents } from '@/hooks'
 import type { Event } from '@/types'
 
 import { TitleSearch } from './filters/TitleSearch'
+import { EmptyMessage, ErrorMessage, LoadingMessage } from './messages'
 
 export const EventsTable = () => {
     const { error, events, isFetching, isPending } = useEvents()
@@ -37,31 +38,56 @@ export const EventsTable = () => {
         )
     }
 
-    if (isPending || isFetching) return <div>Loading...</div>
-    if (error) return <div>An error has occurred: {error.message}</div>
+    const needsMessage = events.length === 0 || isFetching || isPending || !!error
+
+    const getMessage = () => {
+        return (
+            <TableRow>
+                <TableCell
+                    colSpan={4}
+                    sx={{
+                        border: 'none',
+                        height: '100%',
+                        pt: '5rem',
+                    }}
+                >
+                    {isFetching || isPending ? (
+                        <LoadingMessage />
+                    ) : error ? (
+                        <ErrorMessage />
+                    ) : (
+                        <EmptyMessage />
+                    )}
+                </TableCell>
+            </TableRow>
+        )
+    }
 
     const tableHeadCellStyle = {
         color: 'primary.main',
         fontFamily: 'Oswald Variable, sans-serif',
         fontSize: '1rem',
         fontWeight: 600,
+        p: '.75rem 1rem',
     }
-
-    // TODO: Have table fill full height of container with pagination at bottom of screen
-    // TODO: Add a loading state to the table
-    // TODO: Add a no data state to the table
 
     return (
         <TableContainer
             sx={{
                 border: '.5px solid #22418d',
                 borderRadius: '0.5rem',
-                maxHeight: 440,
-                minHeight: 318,
+                flexGrow: 1,
+                height: '100%',
             }}
         >
             <Table stickyHeader>
-                <TableHead>
+                <TableHead
+                    // Since the Title header cell didn't stick this was needed
+                    sx={{
+                        position: 'sticky',
+                        top: 0,
+                    }}
+                >
                     <TableRow>
                         <TableCell sx={tableHeadCellStyle}>Status</TableCell>
                         <TableCell
@@ -80,7 +106,9 @@ export const EventsTable = () => {
                         <TableCell sx={tableHeadCellStyle}>Sources</TableCell>
                     </TableRow>
                 </TableHead>
-                <TableBody>{events.map(generateTableRow)}</TableBody>
+                <TableBody>
+                    {needsMessage ? getMessage() : events.map(generateTableRow)}
+                </TableBody>
             </Table>
         </TableContainer>
     )

@@ -1,3 +1,4 @@
+import { FormControl, InputLabel } from '@mui/material'
 import { DatePicker } from '@mui/x-date-pickers'
 import { DateTime } from 'luxon'
 
@@ -22,17 +23,21 @@ export const DateFilter = () => {
     }
 
     return (
-        <DatePicker
-            aria-label="Events since date"
-            label="Events Since:"
-            maxDate={DateTime.now()}
-            onChange={handleDateChange}
-            slotProps={{
-                textField: {
-                    variant: 'standard',
-                },
-            }}
-            value={calculatedDate}
-        />
+        <>
+            <InputLabel id="date-select-label">Events Since</InputLabel>
+            <FormControl fullWidth variant="standard">
+                <DatePicker
+                    aria-label="Events since date"
+                    maxDate={DateTime.now()}
+                    onChange={handleDateChange}
+                    slotProps={{
+                        textField: {
+                            variant: 'standard',
+                        },
+                    }}
+                    value={calculatedDate}
+                />
+            </FormControl>
+        </>
     )
 }

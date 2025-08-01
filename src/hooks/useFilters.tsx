@@ -6,7 +6,7 @@ import { categoryIdMap } from '@/lib'
 import type { CategoryResponse, Filters, SourceResponse } from '@/types'
 
 const defaultFilters: Filters = {
-    category: '',
+    category: 'all',
     closed: false,
     days: 30,
     open: true,
@@ -42,7 +42,7 @@ export const useFilters = () => {
         const { category, closed, days, open, sources } = filters
         let url = 'https://eonet.gsfc.nasa.gov/api/v2.1/'
 
-        if (category !== '') {
+        if (category !== 'all') {
             // https://eonet.gsfc.nasa.gov/api/v2.1/categories/8?source=InciWeb
             url += `categories/${categoryIdMap[category]}`
         } else {
@@ -77,6 +77,11 @@ export const useFilters = () => {
         setHasChanged(false)
     }
 
+    const handleResetAll = () => {
+        handleReset()
+        setTitleSearch('')
+    }
+
     const handleFilterChange = (
         name: keyof Filters,
         value: (typeof filters)[keyof Filters],
@@ -87,12 +92,6 @@ export const useFilters = () => {
 
     const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setTitleSearch(event.target.value)
-    }
-
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault()
-        console.log(filters)
-        setHasChanged(false)
     }
 
     const categoryOptions = useMemo(() => {
@@ -115,7 +114,7 @@ export const useFilters = () => {
         generateUrl,
         handleFilterChange,
         handleReset,
-        handleSubmit,
+        handleResetAll,
         handleTitleChange,
         hasChanged,
         sourceOptions,

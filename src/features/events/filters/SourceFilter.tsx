@@ -1,7 +1,15 @@
 import { type MouseEvent, useState } from 'react'
 
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
-import { Box, Button, Chip, Menu, MenuItem } from '@mui/material'
+import { AddCircleOutline } from '@mui/icons-material'
+import {
+    Box,
+    Chip,
+    IconButton,
+    InputLabel,
+    Menu,
+    MenuItem,
+    Typography,
+} from '@mui/material'
 
 import { useEvents } from '@/hooks'
 
@@ -39,40 +47,25 @@ export const SourceFilter = () => {
 
     return (
         <>
-            <div>
-                <Button
+            <Box
+                sx={{
+                    alignItems: 'center',
+                    display: 'flex',
+                    gap: 1,
+                    justifyContent: 'space-between',
+                }}
+            >
+                <InputLabel id="source-select-label">Sources</InputLabel>
+                <IconButton
                     aria-controls={open ? 'add-source-menu' : undefined}
                     aria-expanded={open ? 'true' : undefined}
                     aria-haspopup="true"
-                    endIcon={<ArrowDropDownIcon fontSize="large" />}
-                    fullWidth
                     id="add-source-button"
                     onClick={handleClick}
-                    // make it look like the simplified select
-                    sx={{
-                        // border thicken on hover
-                        '&:hover': {
-                            backgroundColor: 'transparent',
-                            borderBottom: '2px solid',
-                            borderColor: 'text.primary',
-                            padding: '0 0 0 0',
-                        },
-                        border: 'none',
-                        borderBottom: '1px solid',
-                        borderRadius: 0,
-                        boxShadow: 'none',
-                        color: 'text.secondary',
-                        fontSize: '1rem',
-                        fontWeight: 'medium',
-                        justifyContent: 'space-between',
-                        mb: sources.length > 0 ? 2 : 0,
-                        padding: '0 0 1px 0',
-                        textTransform: 'capitalize',
-                    }}
-                    variant="outlined"
                 >
-                    Add Source
-                </Button>
+                    <AddCircleOutline />
+                </IconButton>
+                {/* TODO: Should this also have a source specific reset button? */}
                 <Menu
                     anchorEl={anchorEl}
                     id="add-source-menu"
@@ -93,17 +86,21 @@ export const SourceFilter = () => {
                         </MenuItem>
                     ))}
                 </Menu>
-            </div>
+            </Box>
             <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-                {sources.map((source) => (
-                    <Chip
-                        color="primary"
-                        key={source}
-                        label={source}
-                        onDelete={() => handleDelete(source)}
-                        size="small"
-                    />
-                ))}
+                {sources.length > 0 ? (
+                    sources.map((source) => (
+                        <Chip
+                            color="primary"
+                            key={source}
+                            label={source}
+                            onDelete={() => handleDelete(source)}
+                            size="small"
+                        />
+                    ))
+                ) : (
+                    <Typography variant="body1">All Sources</Typography>
+                )}
             </Box>
         </>
     )

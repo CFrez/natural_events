@@ -12,11 +12,12 @@ export const EventFilters = () => {
             <form>
                 <StatusFilter />
                 <Divider sx={{ my: 2 }} />
-                <CategoryFilter />
-                <Divider sx={{ my: 2 }} />
-                <SourceFilter />
-                <Divider sx={{ my: 2 }} />
                 <DateFilter />
+                <Divider sx={{ my: 2 }} />
+                <CategoryFilter />
+                {/* mb reduced to allow for extra spacing around source add button */}
+                <Divider sx={{ mb: 1, mt: 2 }} />
+                <SourceFilter />
             </form>
             <FilterControls />
         </>

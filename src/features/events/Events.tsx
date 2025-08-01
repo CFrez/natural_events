@@ -15,7 +15,17 @@ export const Events = ({ isDrawerOpen }: { isDrawerOpen: boolean }) => {
             sx={{ display: 'flex', flexGrow: 1, overflow: 'auto', width: '100%' }}
         >
             <EventsContext.Provider value={context}>
-                <Box component="section" sx={{ flexGrow: 1, overflow: 'auto', p: 2 }}>
+                <Box
+                    component="section"
+                    sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        flexGrow: 1,
+                        overflow: 'auto',
+                        p: 3,
+                        pb: 1,
+                    }}
+                >
                     <EventsTable />
                     <EventsPagination />
                 </Box>
@@ -30,8 +40,8 @@ export const Events = ({ isDrawerOpen }: { isDrawerOpen: boolean }) => {
                             height: '100%',
                             justifyContent: 'space-between',
                             overflow: 'auto',
-                            p: 2,
-                            width: 200,
+                            p: 3,
+                            width: 'clamp(200px, 25%, 250px)',
                         }}
                     >
                         <EventFilters />
