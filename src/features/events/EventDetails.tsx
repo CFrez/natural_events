@@ -9,8 +9,6 @@ export const EventDetails = () => {
 
     if (!selectedEvent) return null
 
-    console.log(selectedEvent)
-
     const {
         categories,
         closed,

@@ -1,6 +1,18 @@
 import { Circle } from '@mui/icons-material'
 
-export const StatusIcon = ({ closed, label }: { closed: boolean; label: string }) => {
+interface StatusIconProps {
+    closed: boolean
+    label: string
+}
+
+/**
+ * A component that displays a colored labeled status circle based on the `closed` prop.
+ *
+ * __Required__
+ * @param closed - Whether the status is closed.
+ * @param label - The label to display for the icon.
+ */
+export const StatusIcon = ({ closed, label }: StatusIconProps) => {
     return (
         <Circle
             aria-label={`${label}: ${closed ? 'Closed' : 'Open'}`}
