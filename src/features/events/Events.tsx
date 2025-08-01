@@ -1,7 +1,9 @@
 import { Box } from '@mui/material'
 
+import { Modal } from '@/components'
 import { EventsContext, useEventsContext } from '@/hooks'
 
+import { EventDetails } from './EventDetails'
 import { EventsPagination } from './EventsPagination'
 import { EventsTable } from './EventsTable'
 import { EventFilters } from './filters/EventFilters'
@@ -47,6 +49,12 @@ export const Events = ({ isDrawerOpen }: { isDrawerOpen: boolean }) => {
                         <EventFilters />
                     </Box>
                 )}
+                <Modal
+                    onClose={() => context.setSelectedEvent(undefined)}
+                    open={!!context.selectedEvent}
+                >
+                    <EventDetails />
+                </Modal>
             </EventsContext.Provider>
         </Box>
     )

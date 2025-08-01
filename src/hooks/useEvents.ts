@@ -1,8 +1,8 @@
-import React, { useCallback, useEffect, useMemo, useRef } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 
-import type { EventResponse } from '@/types'
+import type { Event, EventResponse } from '@/types'
 
 import { useFilters } from './useFilters'
 import { usePagination } from './usePagination'
@@ -12,6 +12,8 @@ export const useEventsContext = () => {
 
     const pagination = usePagination()
     const filter = useFilters()
+
+    const [selectedEvent, setSelectedEvent] = useState<Event>()
 
     const {
         data: { events = [] } = {},
@@ -78,9 +80,10 @@ export const useEventsContext = () => {
         filter,
         handleCancel,
         handleRefetch,
-        isFetching,
-        isPending,
+        isLoading: isFetching || isPending,
         pagination,
+        selectedEvent,
+        setSelectedEvent,
         totalEvents,
     }
 }
