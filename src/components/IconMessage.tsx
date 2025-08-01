@@ -1,11 +1,25 @@
 import { DataArray, ErrorOutline } from '@mui/icons-material'
 import { Box, CircularProgress, Typography } from '@mui/material'
 
+/**
+ * A component that displays an icon based on the `type` and a message.
+ *
+ * If an `icon` is provided then the `type` will be ignored. If neither are provided
+ * then the icon will default to `error`.
+ *
+ * __Required__
+ * @param message - The message to display under the icon.
+ *
+ * __Optional__
+ * @param details - Details or actions to display below the message.
+ * @param icon - The icon to display.
+ * @param type - The type of icon to display.
+ */
 export const IconMessage = ({
     details,
     icon,
     message,
-    type,
+    type = 'error',
 }: {
     details?: React.ReactNode
     icon?: React.ReactNode

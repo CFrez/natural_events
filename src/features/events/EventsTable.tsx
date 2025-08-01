@@ -7,38 +7,47 @@ import {
     TableRow,
 } from '@mui/material'
 
+import { StatusIcon } from '@/components'
 import { useEvents } from '@/hooks'
+import { splitEventTitle } from '@/lib'
 import type { Event } from '@/types'
 
 import { TitleSearch } from './filters/TitleSearch'
 import { EmptyMessage, ErrorMessage, LoadingMessage } from './messages'
 
 export const EventsTable = () => {
-    const { error, events, isFetching, isPending } = useEvents()
+    const { error, events, isLoading, setSelectedEvent } = useEvents()
 
-    const generateTableRow = (row: Event) => {
-        const title = row.title.split(',')[0]
-        const location = row.title.split(',').slice(1).join(', ')
+    const generateTableRow = (event: Event) => {
+        const { location, title } = splitEventTitle(event.title)
 
         return (
-            <TableRow hover key={row.id} role="checkbox" tabIndex={-1}>
-                <TableCell>{row.closed ? 'Closed' : 'Open'}</TableCell>
+            <TableRow
+                hover
+                key={event.id}
+                onClick={() => setSelectedEvent(event)}
+                role="checkbox"
+                tabIndex={-1}
+            >
+                <TableCell sx={{ textAlign: 'center', width: '50px' }}>
+                    <StatusIcon closed={!!event.closed} label="Event status" />
+                </TableCell>
                 <TableCell>
                     {title}
                     <br />
                     {location}
                 </TableCell>
                 <TableCell>
-                    {row.categories.map((category) => category.title).join(', ')}
+                    {event.categories.map((category) => category.title).join(', ')}
                 </TableCell>
                 <TableCell>
-                    {row.sources.map((source) => source.id).join(', ')}
+                    {event.sources.map((source) => source.id).join(', ')}
                 </TableCell>
             </TableRow>
         )
     }
 
-    const needsMessage = events.length === 0 || isFetching || isPending || !!error
+    const needsMessage = events.length === 0 || isLoading || !!error
 
     const getMessage = () => {
         return (
@@ -51,7 +60,7 @@ export const EventsTable = () => {
                         pt: '5rem',
                     }}
                 >
-                    {isFetching || isPending ? (
+                    {isLoading ? (
                         <LoadingMessage />
                     ) : error ? (
                         <ErrorMessage />
