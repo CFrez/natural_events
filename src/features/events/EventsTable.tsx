@@ -48,7 +48,7 @@ export const EventsTable = () => {
                     sx={{
                         border: 'none',
                         height: '100%',
-                        paddingTop: '5rem',
+                        pt: '5rem',
                     }}
                 >
                     {isFetching || isPending ? (
@@ -68,7 +68,7 @@ export const EventsTable = () => {
         fontFamily: 'Oswald Variable, sans-serif',
         fontSize: '1rem',
         fontWeight: 600,
-        padding: '.75rem 1rem',
+        p: '.75rem 1rem',
     }
 
     return (
