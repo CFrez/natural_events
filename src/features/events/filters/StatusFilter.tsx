@@ -19,7 +19,7 @@ export const StatusFilter = () => {
     return (
         <FormControl component="fieldset">
             <FormLabel component="legend">Status</FormLabel>
-            <FormGroup>
+            <FormGroup sx={{ pl: 1 }}>
                 <FormControlLabel
                     control={
                         <Switch
