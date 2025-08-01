@@ -63,7 +63,8 @@ export const EventDetails = () => {
                     <Typography sx={{ fontSize: '1.25rem' }}>{location}</Typography>
                 </Box>
             </Box>
-            <Box sx={{ p: 2 }}>
+            {/* HACK: Not best experience to have horizontal scroll in the modal.... */}
+            <Box sx={{ overflowX: 'auto', p: 2 }}>
                 {closedDate && generateDetailsSection('Closed', closedDate)}
                 {generateDetailsSection('Description', description)}
                 {generateDetailsSection('Category', categories[0]?.title)}
