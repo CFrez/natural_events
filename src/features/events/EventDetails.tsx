@@ -18,6 +18,9 @@ export const EventDetails = () => {
         title: eventTitle,
     } = selectedEvent
 
+    const { location, title } = splitEventTitle(eventTitle)
+    const closedDate = closed ? new Date(closed).toLocaleDateString() : null
+
     const generateDetailsSection = (title: string, content: React.ReactNode) => {
         return (
             <Box
@@ -31,10 +34,6 @@ export const EventDetails = () => {
             </Box>
         )
     }
-
-    const { location, title } = splitEventTitle(eventTitle)
-
-    const closedDate = closed ? new Date(closed).toLocaleDateString() : null
 
     return (
         <>

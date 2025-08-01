@@ -6,7 +6,8 @@ interface StatusIconProps {
 }
 
 /**
- * A component that displays a colored labeled status circle based on the `closed` prop.
+ * A component that displays a colored status circle based on the `closed` prop.
+ * Includes an `aria-label` that describes the status.
  *
  * __Required__
  * @param closed - Whether the status is closed.
