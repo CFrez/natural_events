@@ -1,7 +1,7 @@
 import { type MouseEvent, useState } from 'react'
 
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
-import { Box, Button, Chip, Menu, MenuItem } from '@mui/material'
+import { Box, Button, Chip, InputLabel, Menu, MenuItem } from '@mui/material'
 
 import { useEvents } from '@/hooks'
 
@@ -40,6 +40,7 @@ export const SourceFilter = () => {
     return (
         <>
             <div>
+                <InputLabel id="source-select-label">Sources</InputLabel>
                 <Button
                     aria-controls={open ? 'add-source-menu' : undefined}
                     aria-expanded={open ? 'true' : undefined}

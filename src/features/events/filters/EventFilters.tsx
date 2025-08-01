@@ -12,11 +12,11 @@ export const EventFilters = () => {
             <form>
                 <StatusFilter />
                 <Divider sx={{ my: 2 }} />
+                <DateFilter />
+                <Divider sx={{ my: 2 }} />
                 <CategoryFilter />
                 <Divider sx={{ my: 2 }} />
                 <SourceFilter />
-                <Divider sx={{ my: 2 }} />
-                <DateFilter />
             </form>
             <FilterControls />
         </>

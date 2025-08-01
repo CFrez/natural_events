@@ -20,23 +20,25 @@ export const CategoryFilter = () => {
     }
 
     return (
-        <FormControl fullWidth variant="standard">
+        <>
             <InputLabel id="category-select-label">Category</InputLabel>
-            <Select
-                id="category-select"
-                label="Category"
-                labelId="category-select-label"
-                name="category"
-                onChange={handleSelectChange}
-                value={category}
-            >
-                <MenuItem value="all">All Categories</MenuItem>
-                {categoryOptions?.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
-                        {option.label}
-                    </MenuItem>
-                ))}
-            </Select>
-        </FormControl>
+            <FormControl fullWidth variant="standard">
+                <Select
+                    aria-label="Category"
+                    id="category-select"
+                    labelId="category-select-label"
+                    name="category"
+                    onChange={handleSelectChange}
+                    value={category}
+                >
+                    <MenuItem value="all">All Categories</MenuItem>
+                    {categoryOptions?.map((option) => (
+                        <MenuItem key={option.value} value={option.value}>
+                            {option.label}
+                        </MenuItem>
+                    ))}
+                </Select>
+            </FormControl>
+        </>
     )
 }
