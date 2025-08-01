@@ -9,6 +9,7 @@ import {
 
 import { StatusIcon } from '@/components'
 import { useEvents } from '@/hooks'
+import { splitEventTitle } from '@/lib'
 import type { Event } from '@/types'
 
 import { TitleSearch } from './filters/TitleSearch'
@@ -18,8 +19,7 @@ export const EventsTable = () => {
     const { error, events, isLoading, setSelectedEvent } = useEvents()
 
     const generateTableRow = (event: Event) => {
-        const title = event.title.split(',')[0]
-        const location = event.title.split(',').slice(1).join(', ')
+        const { location, title } = splitEventTitle(event.title)
 
         return (
             <TableRow
@@ -30,7 +30,7 @@ export const EventsTable = () => {
                 tabIndex={-1}
             >
                 <TableCell sx={{ textAlign: 'center', width: '50px' }}>
-                    <StatusIcon closed={event.closed} label="Event status" />
+                    <StatusIcon closed={!!event.closed} label="Event status" />
                 </TableCell>
                 <TableCell>
                     {title}

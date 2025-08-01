@@ -2,16 +2,25 @@ import { Box, Link, Typography } from '@mui/material'
 
 import { StatusIcon } from '@/components'
 import { useEvents } from '@/hooks'
+import { splitEventTitle } from '@/lib'
 
 export const EventDetails = () => {
     const { selectedEvent } = useEvents()
 
     if (!selectedEvent) return null
 
-    const { categories, closed, description, link, sources, title } = selectedEvent
+    console.log(selectedEvent)
+
+    const {
+        categories,
+        closed,
+        description,
+        link,
+        sources,
+        title: eventTitle,
+    } = selectedEvent
 
     const generateDetailsSection = (title: string, content: React.ReactNode) => {
-        if (!content) return null
         return (
             <Box
                 component="section"
@@ -20,10 +29,14 @@ export const EventDetails = () => {
                 <Typography sx={{ fontWeight: 'bold' }} variant="h6">
                     {title}:
                 </Typography>
-                <Typography>{content}</Typography>
+                <Typography>{content || 'None'}</Typography>
             </Box>
         )
     }
+
+    const { location, title } = splitEventTitle(eventTitle)
+
+    const closedDate = closed ? new Date(closed).toLocaleDateString() : null
 
     return (
         <>
@@ -39,15 +52,19 @@ export const EventDetails = () => {
                     pr: 20,
                 }}
             >
-                <StatusIcon closed={closed} label="Event status" />
-                <Typography
-                    sx={{ fontSize: '1.5rem', fontWeight: 'bold', lineHeight: 1.2 }}
-                    variant="h6"
-                >
-                    {title}
-                </Typography>
+                <StatusIcon closed={!!closed} label="Event status" />
+                <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                    <Typography
+                        sx={{ fontSize: '1.5rem', fontWeight: 'bold', lineHeight: 1.2 }}
+                        variant="h6"
+                    >
+                        {title}
+                    </Typography>
+                    <Typography sx={{ fontSize: '1.25rem' }}>{location}</Typography>
+                </Box>
             </Box>
             <Box sx={{ p: 2 }}>
+                {closedDate && generateDetailsSection('Closed', closedDate)}
                 {generateDetailsSection('Description', description)}
                 {generateDetailsSection('Category', categories[0]?.title)}
                 {generateDetailsSection(

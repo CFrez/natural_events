@@ -12,7 +12,7 @@ export interface CategoryResponse extends Response {
 
 export interface Event {
     categories: Category[]
-    closed: boolean
+    closed?: string
     description?: string
     geometries: EventGeometry[]
     id: string
