@@ -43,10 +43,9 @@ export interface EventSource {
 
 export interface Filters {
     category: string
-    closed: boolean
     days: number
-    open: boolean
     sources: string[]
+    status: 'closed' | 'open'
 }
 
 export interface Response {

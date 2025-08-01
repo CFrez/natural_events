@@ -7,10 +7,9 @@ import type { CategoryResponse, Filters, SourceResponse } from '@/types'
 
 const defaultFilters: Filters = {
     category: 'all',
-    closed: false,
     days: 30,
-    open: true,
     sources: [],
+    status: 'open',
 }
 
 export const useFilters = () => {
@@ -39,7 +38,7 @@ export const useFilters = () => {
     })
 
     const generateUrl = useCallback(() => {
-        const { category, closed, days, open, sources } = filters
+        const { category, days, sources, status } = filters
         let url = 'https://eonet.gsfc.nasa.gov/api/v2.1/'
 
         if (category !== 'all') {
@@ -55,10 +54,8 @@ export const useFilters = () => {
             queryParams.append('source', sources.join(','))
         }
 
-        if (open && !closed) {
-            // https://eonet.gsfc.nasa.gov/api/v2.1/events?status=open
-            queryParams.append('status', 'open')
-        } else if (!open && closed) {
+        // If no status is provided, the API will return only open events
+        if (status === 'closed') {
             // https://eonet.gsfc.nasa.gov/api/v2.1/events?status=closed
             queryParams.append('status', 'closed')
         }

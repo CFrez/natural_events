@@ -1,9 +1,9 @@
 import {
     FormControl,
     FormControlLabel,
-    FormGroup,
     FormLabel,
-    Switch,
+    Radio,
+    RadioGroup,
 } from '@mui/material'
 
 import { useEvents } from '@/hooks'
@@ -11,40 +11,38 @@ import { useEvents } from '@/hooks'
 export const StatusFilter = () => {
     const {
         filter: {
-            filters: { closed, open },
+            filters: { status },
             handleFilterChange,
         },
     } = useEvents()
 
     return (
         <FormControl component="fieldset">
-            <FormLabel component="legend">Status</FormLabel>
-            <FormGroup sx={{ pl: 1 }}>
+            <FormLabel component="legend" id="status-filter-label">
+                Status
+            </FormLabel>
+            <RadioGroup
+                aria-labelledby="status-filter-label"
+                name="status"
+                onChange={(e) => handleFilterChange('status', e.target.value)}
+                sx={{
+                    '& .MuiFormControlLabel-root': {
+                        lineHeight: 1,
+                    },
+                }}
+                value={status}
+            >
                 <FormControlLabel
-                    control={
-                        <Switch
-                            aria-label={`${open ? 'Hide' : 'Show'} open events`}
-                            checked={open}
-                            onChange={() => handleFilterChange('open', !open)}
-                            size="small"
-                        />
-                    }
+                    control={<Radio size="small" />}
                     label="Open"
-                    name="open"
+                    value="open"
                 />
                 <FormControlLabel
-                    control={
-                        <Switch
-                            aria-label={`${closed ? 'Hide' : 'Show'} closed events`}
-                            checked={closed}
-                            onChange={() => handleFilterChange('closed', !closed)}
-                            size="small"
-                        />
-                    }
+                    control={<Radio size="small" />}
                     label="Closed"
-                    name="closed"
+                    value="closed"
                 />
-            </FormGroup>
+            </RadioGroup>
         </FormControl>
     )
 }
