@@ -86,7 +86,7 @@ export const SourceFilter = () => {
                     ))}
                 </Menu>
             </Box>
-            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5, mt: 1 }}>
+            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
                 {sources.length > 0 ? (
                     sources.map((source) => (
                         <Chip
