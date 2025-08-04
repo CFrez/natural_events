@@ -31,9 +31,11 @@ export const useEventsContext = () => {
 
     const handleRefetch = useCallback(() => {
         const { onPageChange: handleChangePage } = pagination
-        handleChangePage(null, 0)
-        refetch()
-    }, [pagination, refetch])
+        if (filter.validateForm()) {
+            handleChangePage(null, 0)
+            refetch()
+        }
+    }, [pagination, refetch, filter.validateForm])
 
     // HACK: after filters have been reset, the events are refetched
     // This avoids a race condition where the events are refetched before the filters are reset

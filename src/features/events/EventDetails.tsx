@@ -38,7 +38,7 @@ export const EventDetails = () => {
                     <Typography sx={{ fontSize: '1.25rem' }}>{location}</Typography>
                 </Box>
             </Box>
-            <Box sx={{ height: '300px', width: '100%' }}>
+            <Box sx={{ height: '50vh', width: '100%' }}>
                 <Map geometries={geometries} />
             </Box>
         </>

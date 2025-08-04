@@ -10,10 +10,14 @@ const defaultFilters: Filters = {
     days: 30,
     sources: [],
     status: 'open',
+    validation: 42,
 }
 
 export const useFilters = () => {
     const [filters, setFilters] = useState<Filters>(defaultFilters)
+    const [formErrors, setFormErrors] = useState<
+        Partial<Record<keyof Filters, string>>
+    >({})
     const [hasChanged, setHasChanged] = useState(false)
     // Title search is kept separate since the API does not support it
     // so it is done locally
@@ -66,6 +70,7 @@ export const useFilters = () => {
         }
         url += `?${queryParams.toString()}`
 
+        setHasChanged(false)
         return url
     }, [filters])
 
@@ -91,6 +96,22 @@ export const useFilters = () => {
         setTitleSearch(event.target.value)
     }
 
+    const validateForm = () => {
+        const validationError =
+            filters.validation !== 42 && filters.validation !== undefined
+
+        // All other fields do not allow for invalid input
+        // so we only need to validate the validation field
+        if (validationError) {
+            setFormErrors({
+                validation: 'Please make sure the answer is 42!',
+            })
+        } else {
+            setFormErrors({})
+        }
+        return !validationError
+    }
+
     const categoryOptions = useMemo(() => {
         return categories?.map((category) => ({
             label: category.title,
@@ -108,6 +129,7 @@ export const useFilters = () => {
     return {
         categoryOptions,
         filters,
+        formErrors,
         generateUrl,
         handleFilterChange,
         handleReset,
@@ -116,5 +138,6 @@ export const useFilters = () => {
         hasChanged,
         sourceOptions,
         titleSearch,
+        validateForm,
     }
 }

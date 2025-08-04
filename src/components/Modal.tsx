@@ -33,7 +33,7 @@ export const Modal = ({ children, onClose, open, ...props }: ModalProps) => {
                     borderRadius: 2,
                     boxShadow: 24,
                     left: '50%',
-                    maxHeight: '70vh',
+                    maxHeight: '75vh',
                     overflowY: 'auto',
                     position: 'absolute',
                     top: '50%',

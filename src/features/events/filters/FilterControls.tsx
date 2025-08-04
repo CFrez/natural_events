@@ -10,7 +10,7 @@ export const FilterControls = () => {
     } = useEvents()
 
     return (
-        <Box sx={{ display: 'flex', gap: 1 }}>
+        <Box sx={{ display: 'flex', gap: 1, pt: 2 }}>
             <Button
                 aria-label="Apply Filters"
                 color="primary"
