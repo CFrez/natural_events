@@ -46,6 +46,7 @@ export interface Filters {
     days: number
     sources: string[]
     status: 'closed' | 'open'
+    validation?: number
 }
 
 export interface Response {

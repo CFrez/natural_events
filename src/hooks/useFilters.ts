@@ -10,10 +10,18 @@ const defaultFilters: Filters = {
     days: 30,
     sources: [],
     status: 'open',
+    validation: 42,
 }
 
 export const useFilters = () => {
     const [filters, setFilters] = useState<Filters>(defaultFilters)
+    const [formErrors, setFormErrors] = useState<Record<keyof Filters, boolean>>({
+        category: false,
+        days: false,
+        sources: false,
+        status: false,
+        validation: false,
+    })
     const [hasChanged, setHasChanged] = useState(false)
     // Title search is kept separate since the API does not support it
     // so it is done locally
@@ -91,6 +99,18 @@ export const useFilters = () => {
         setTitleSearch(event.target.value)
     }
 
+    const validateForm = () => {
+        const validationError =
+            filters.validation !== 42 && filters.validation !== undefined
+        setFormErrors((prev) => {
+            return {
+                ...prev,
+                validation: validationError,
+            }
+        })
+        return !validationError
+    }
+
     const categoryOptions = useMemo(() => {
         return categories?.map((category) => ({
             label: category.title,
@@ -108,6 +128,7 @@ export const useFilters = () => {
     return {
         categoryOptions,
         filters,
+        formErrors,
         generateUrl,
         handleFilterChange,
         handleReset,
@@ -116,5 +137,6 @@ export const useFilters = () => {
         hasChanged,
         sourceOptions,
         titleSearch,
+        validateForm,
     }
 }
