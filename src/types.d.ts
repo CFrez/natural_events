@@ -27,7 +27,7 @@ export interface EventCategory {
 }
 
 export interface EventGeometry {
-    coordinates: number[][]
+    coordinates: [number, number]
     date: string
     type: 'Point' | 'Polygon'
 }

@@ -1,6 +1,6 @@
-import { Box, Link, Typography } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 
-import { StatusIcon } from '@/components'
+import { Map, StatusIcon } from '@/components'
 import { useEvents } from '@/hooks'
 import { splitEventTitle } from '@/lib'
 
@@ -9,31 +9,9 @@ export const EventDetails = () => {
 
     if (!selectedEvent) return null
 
-    const {
-        categories,
-        closed,
-        description,
-        link,
-        sources,
-        title: eventTitle,
-    } = selectedEvent
+    const { closed, geometries, title: eventTitle } = selectedEvent
 
     const { location, title } = splitEventTitle(eventTitle)
-    const closedDate = closed ? new Date(closed).toLocaleDateString() : null
-
-    const generateDetailsSection = (title: string, content: React.ReactNode) => {
-        return (
-            <Box
-                component="section"
-                sx={{ display: 'flex', flexDirection: 'column', fontSize: '1.25rem' }}
-            >
-                <Typography sx={{ fontWeight: 'bold' }} variant="h6">
-                    {title}:
-                </Typography>
-                <Typography>{content || 'None'}</Typography>
-            </Box>
-        )
-    }
 
     return (
         <>
@@ -49,7 +27,7 @@ export const EventDetails = () => {
                     pr: 20,
                 }}
             >
-                <StatusIcon closed={!!closed} label="Event status" />
+                <StatusIcon closedDate={closed} label="Event status" />
                 <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                     <Typography
                         sx={{ fontSize: '1.5rem', fontWeight: 'bold', lineHeight: 1.2 }}
@@ -60,21 +38,8 @@ export const EventDetails = () => {
                     <Typography sx={{ fontSize: '1.25rem' }}>{location}</Typography>
                 </Box>
             </Box>
-            {/* HACK: Not best experience to have horizontal scroll in the modal.... */}
-            <Box sx={{ overflowX: 'auto', p: 2 }}>
-                {closedDate && generateDetailsSection('Closed', closedDate)}
-                {generateDetailsSection('Description', description)}
-                {generateDetailsSection('Category', categories[0]?.title)}
-                {generateDetailsSection(
-                    'Sources',
-                    sources.map((source) => source.id).join(', '),
-                )}
-                {generateDetailsSection(
-                    'Link',
-                    <Link href={link} rel="noopener noreferrer" target="_blank">
-                        {link}
-                    </Link>,
-                )}
+            <Box sx={{ height: '300px', width: '100%' }}>
+                <Map geometries={geometries} />
             </Box>
         </>
     )

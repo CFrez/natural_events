@@ -30,7 +30,7 @@ export const EventsTable = () => {
                 tabIndex={-1}
             >
                 <TableCell sx={{ textAlign: 'center', width: '50px' }}>
-                    <StatusIcon closed={!!event.closed} label="Event status" />
+                    <StatusIcon closedDate={event.closed} label="Event status" />
                 </TableCell>
                 <TableCell>
                     {title}
