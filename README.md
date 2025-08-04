@@ -69,7 +69,7 @@ pnpm dev
 
 ## Assumptions Made
 
-1. **API Stability** - Assumed EONET API structure remains consistent
+1. **API Stability** - Assumed EONET API structure remains consistent and will remain available, despite deprecation, for review timeframe
 2. **Browser Support** - Targeting modern browsers with ES6+ support
 3. **Data Volume** - Since the API does not provide pagination, I set a default 30-day limit and provide warnings/cancellation options if users attempt to search for longer periods
 4. **User Interaction** - Assumed users primarily interact via desktop/tablet interfaces
