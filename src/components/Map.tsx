@@ -11,9 +11,14 @@ const swapCoordinates = (coordinates: [number, number]) => {
     return [coordinates[1], coordinates[0]] as [number, number]
 }
 
+/**
+ * A component that displays a map of geometries.
+ *
+ * __Required__
+ * @param geometries - The geometries to display on the map.
+ */
 export const Map = ({ geometries }: MapProps) => {
     const geometriesLength = geometries.length
-    // find the center of the geometries
     const center = geometries.reduce(
         (acc, geometry) => {
             return [acc[0] + geometry.coordinates[0], acc[1] + geometry.coordinates[1]]
