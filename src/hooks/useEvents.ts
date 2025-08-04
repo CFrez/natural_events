@@ -35,7 +35,7 @@ export const useEventsContext = () => {
             handleChangePage(null, 0)
             refetch()
         }
-    }, [pagination, refetch, filter])
+    }, [pagination, refetch, filter.validateForm])
 
     // HACK: after filters have been reset, the events are refetched
     // This avoids a race condition where the events are refetched before the filters are reset
