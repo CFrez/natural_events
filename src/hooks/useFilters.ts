@@ -70,6 +70,7 @@ export const useFilters = () => {
         }
         url += `?${queryParams.toString()}`
 
+        setHasChanged(false)
         return url
     }, [filters])
 
