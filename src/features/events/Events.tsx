@@ -3,10 +3,10 @@ import { Box } from '@mui/material'
 import { Modal } from '@/components'
 import { EventsContext, useEventsContext } from '@/hooks'
 
+import { EventsPagination } from './components/EventsPagination'
+import { EventsTable } from './components/EventsTable'
+import { EventFilters } from './components/filters/EventFilters'
 import { EventDetails } from './EventDetails'
-import { EventsPagination } from './EventsPagination'
-import { EventsTable } from './EventsTable'
-import { EventFilters } from './filters/EventFilters'
 
 export const Events = ({ isDrawerOpen }: { isDrawerOpen: boolean }) => {
     const context = useEventsContext()

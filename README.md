@@ -1,69 +1,88 @@
-# React + TypeScript + Vite
+# Natural Events from EONET
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React application for exploring natural events from NASA's Earth Observing System Data and Information System (EONET) API.
 
-Currently, two official plugins are available:
+## Setup and Installation Instructions
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Prerequisites
 
-## Expanding the ESLint configuration
+- Node.js (latest LTS version recommended)
+- pnpm (preferred package manager for its disk space efficiency, faster installations, stricter dependency management, and cleaner terminal output)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Installation
 
-```js
-export default tseslint.config([
-    globalIgnores(['dist']),
-    {
-        files: ['**/*.{ts,tsx}'],
-        extends: [
-            // Other configs...
+1. Clone the repository
+2. Install dependencies:
 
-            // Remove tseslint.configs.recommended and replace with this
-            ...tseslint.configs.recommendedTypeChecked,
-            // Alternatively, use this for stricter rules
-            ...tseslint.configs.strictTypeChecked,
-            // Optionally, add this for stylistic rules
-            ...tseslint.configs.stylisticTypeChecked,
-
-            // Other configs...
-        ],
-        languageOptions: {
-            parserOptions: {
-                project: ['./tsconfig.node.json', './tsconfig.app.json'],
-                tsconfigRootDir: import.meta.dirname,
-            },
-            // other options...
-        },
-    },
-])
+```bash
+pnpm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Development
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-    globalIgnores(['dist']),
-    {
-        files: ['**/*.{ts,tsx}'],
-        extends: [
-            // Other configs...
-            // Enable lint rules for React
-            reactX.configs['recommended-typescript'],
-            // Enable lint rules for React DOM
-            reactDom.configs.recommended,
-        ],
-        languageOptions: {
-            parserOptions: {
-                project: ['./tsconfig.node.json', './tsconfig.app.json'],
-                tsconfigRootDir: import.meta.dirname,
-            },
-            // other options...
-        },
-    },
-])
+```bash
+pnpm dev
 ```
+
+## Brief Description of Approach and Design Decisions
+
+### Architecture
+
+- **Component-based architecture** with a clear separation between features, components, and hooks
+- **Custom hooks pattern** for state management (`useEvents`, `useFilters`, `usePagination`)
+- **Context API** for sharing event data across components without prop drilling
+- **Feature-based folder structure** organizing related components together
+
+### Key Design Decisions
+
+- **Vite** for ultra-fast development server without complex configuration
+- **TypeScript** for type safety and better developer experience
+- **TanStack React Query** for efficient data fetching, caching, and synchronization with the EONET API
+- **Material-UI (MUI)** for consistent, accessible UI components and theming
+- **Luxon** for date/time handling and formatting
+- **React Leaflet** integration for interactive map visualization of event locations
+
+### Data Flow
+
+1. Filters generate API URLs dynamically
+2. React Query handles caching and fetching
+3. Events are displayed in the table
+4. Modal for showing map details of an event
+
+## Technologies Overview
+
+### Previously Familiar Technologies
+
+- **Vite** - Standard build tool I use regularly
+- **React** - Primary framework I work with
+- **TypeScript** - Always use because types are amazing
+- **ESLint/Prettier** - Helps me keep my sanity
+- **Luxon** - Very user-friendly, well-documented library for DateTime management
+
+### New/Less Familiar Technologies
+
+- **Material-UI** - It has been years since I last used this library
+- **TanStack React Query** - I have looked at this before but never actually used it
+- **React Leaflet** - Newly discovered for this implementation, but very easy to use
+- **EONET API** - Brand new API that I hadn't worked with before
+- **Husky** - I have used this previously on a project, but don't know all the intricacies
+
+## Assumptions Made
+
+1. **API Stability** - Assumed EONET API structure remains consistent
+2. **Browser Support** - Targeting modern browsers with ES6+ support
+3. **Data Volume** - Since the API does not provide pagination, I set a default 30-day limit and provide warnings/cancellation options if users attempt to search for longer periods
+4. **User Interaction** - Assumed users primarily interact via desktop/tablet interfaces
+
+## What Would Be Added/Removed/Changed With More Time
+
+### Additions
+
+- **Enhanced map view** - A large map interface showing all events simultaneously with toggleable category visibility for visual data exploration
+- **Details page** - Dedicated page for each event with comprehensive information, related events, and enhanced geographic context
+
+### Changes
+
+- **Mobile-optimized interface**
+    - Replace the table with a card-based layout showing essential details, with infinite scroll loading. Ideally paired with an API that supports proper pagination for better performance
+    - Update the filter menu to use a collapsible dropdown for mobile devices
