@@ -11,18 +11,6 @@ interface ModalProps extends MuiModalProps {
     open: boolean
 }
 
-const modalStyle = {
-    bgcolor: 'background.paper',
-    borderRadius: 2,
-    boxShadow: 24,
-    left: '50%',
-    overflow: 'auto',
-    position: 'absolute',
-    top: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 'clamp(400px, 50%, 800px)',
-}
-
 /**
  * A controlled modal component without a trigger.
  *
@@ -39,7 +27,20 @@ const modalStyle = {
 export const Modal = ({ children, onClose, open, ...props }: ModalProps) => {
     return (
         <MuiModal onClose={onClose} open={open} {...props}>
-            <Box sx={modalStyle}>
+            <Box
+                sx={{
+                    bgcolor: 'background.paper',
+                    borderRadius: 2,
+                    boxShadow: 24,
+                    left: '50%',
+                    maxHeight: '70vh',
+                    overflowY: 'auto',
+                    position: 'absolute',
+                    top: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    width: 'clamp(400px, 65%, 800px)',
+                }}
+            >
                 <IconButton
                     onClick={onClose}
                     sx={{ position: 'absolute', right: 10, top: 10, zIndex: 1 }}

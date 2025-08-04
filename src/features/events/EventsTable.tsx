@@ -16,7 +16,13 @@ import { TitleSearch } from './filters/TitleSearch'
 import { EmptyMessage, ErrorMessage, LoadingMessage } from './messages'
 
 export const EventsTable = () => {
-    const { error, events, isLoading, setSelectedEvent } = useEvents()
+    const {
+        error,
+        events,
+        isLoading,
+        pagination: { tableTopRef },
+        setSelectedEvent,
+    } = useEvents()
 
     const generateTableRow = (event: Event) => {
         const { location, title } = splitEventTitle(event.title)
@@ -27,12 +33,21 @@ export const EventsTable = () => {
                 key={event.id}
                 onClick={() => setSelectedEvent(event)}
                 role="checkbox"
+                sx={{
+                    '&:hover': {
+                        '.title-cell': {
+                            textDecoration: 'underline',
+                            textUnderlineOffset: '2px',
+                        },
+                        cursor: 'pointer',
+                    },
+                }}
                 tabIndex={-1}
             >
                 <TableCell sx={{ textAlign: 'center', width: '50px' }}>
-                    <StatusIcon closed={!!event.closed} label="Event status" />
+                    <StatusIcon closedDate={event.closed} label="Event status" />
                 </TableCell>
-                <TableCell>
+                <TableCell className="title-cell">
                     {title}
                     <br />
                     {location}
@@ -89,9 +104,9 @@ export const EventsTable = () => {
                 height: '100%',
             }}
         >
-            <Table stickyHeader>
+            <Table ref={tableTopRef} stickyHeader>
                 <TableHead
-                    // Since the Title header cell didn't stick this was needed
+                    // Since the `Title` header cell with search didn't stick this was needed
                     sx={{
                         position: 'sticky',
                         top: 0,
