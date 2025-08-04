@@ -1,11 +1,13 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 
 export const usePagination = () => {
     const [page, setPage] = useState(0)
     const [rowsPerPage, setRowsPerPage] = useState(10)
+    const tableTopRef = useRef<HTMLTableElement>(null)
 
     const handleChangePage = (_: unknown, newPage: number) => {
         setPage(newPage)
+        tableTopRef.current?.scrollIntoView({ behavior: 'smooth' })
     }
 
     const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -18,5 +20,6 @@ export const usePagination = () => {
         onRowsPerPageChange: handleChangeRowsPerPage,
         page,
         rowsPerPage,
+        tableTopRef,
     }
 }
