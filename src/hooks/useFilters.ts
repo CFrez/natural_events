@@ -15,13 +15,9 @@ const defaultFilters: Filters = {
 
 export const useFilters = () => {
     const [filters, setFilters] = useState<Filters>(defaultFilters)
-    const [formErrors, setFormErrors] = useState<Record<keyof Filters, boolean>>({
-        category: false,
-        days: false,
-        sources: false,
-        status: false,
-        validation: false,
-    })
+    const [formErrors, setFormErrors] = useState<
+        Partial<Record<keyof Filters, string>>
+    >({})
     const [hasChanged, setHasChanged] = useState(false)
     // Title search is kept separate since the API does not support it
     // so it is done locally
@@ -102,12 +98,16 @@ export const useFilters = () => {
     const validateForm = () => {
         const validationError =
             filters.validation !== 42 && filters.validation !== undefined
-        setFormErrors((prev) => {
-            return {
-                ...prev,
-                validation: validationError,
-            }
-        })
+
+        // All other fields do not allow for invalid input
+        // so we only need to validate the validation field
+        if (validationError) {
+            setFormErrors({
+                validation: 'Please make sure the answer is 42!',
+            })
+        } else {
+            setFormErrors({})
+        }
         return !validationError
     }
 

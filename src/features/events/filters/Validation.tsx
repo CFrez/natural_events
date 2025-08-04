@@ -11,10 +11,10 @@ export const Validation = () => {
 
     return (
         <>
-            <InputLabel error={error} id="validation-filter-label">
+            <InputLabel error={!!error} id="validation-filter-label">
                 Validation
             </InputLabel>
-            <FormControl error={error} fullWidth variant="standard">
+            <FormControl error={!!error} fullWidth variant="standard">
                 <Input
                     aria-label="Validation"
                     aria-labelledby="validation-filter-label"
@@ -28,7 +28,9 @@ export const Validation = () => {
                     }
                     value={validation}
                 />
-                <FormHelperText>The only allowable answer is 42</FormHelperText>
+                <FormHelperText>
+                    {error || 'The only allowable answer is 42'}
+                </FormHelperText>
             </FormControl>
         </>
     )
