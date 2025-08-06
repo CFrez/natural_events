@@ -14,6 +14,10 @@ export const FilterControls = () => {
             <Button
                 aria-label="Apply Filters"
                 color="primary"
+                // TODO: find better state management to handle this disabled
+                // whenever the filters haven't changed after the refetch has
+                // been called. Currently, this is only disabled before the filters
+                // are changed for the first time
                 disabled={!hasChanged}
                 onClick={handleRefetch}
                 sx={{
